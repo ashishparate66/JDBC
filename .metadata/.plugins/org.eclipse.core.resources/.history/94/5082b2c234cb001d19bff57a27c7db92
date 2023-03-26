@@ -1,0 +1,111 @@
+package com.masaischool.ui;
+
+import java.time.LocalDate;
+import java.util.Scanner;
+
+import com.masaischool.dto.Department;
+import com.masaischool.dto.DepartmentImpl;
+import com.masaischool.dto.Employee;
+import com.masaischool.dto.EmployeeImpl;
+import com.masaischool.exception.SomethingWentWrongException;
+
+public class UIMain {
+	
+	
+	static void addEmployeeUI(Scanner sc) {
+		//take input employee details
+		System.out.print("Enter Employee ID ");
+		int empId = sc.nextInt();
+		
+		System.out.print("Enter Employee name ");
+		String ename = sc.next();
+		
+		System.out.print("Enter Address ");
+		String address = sc.next();
+		
+		System.out.print("Enter Mobile ");
+		String mobile = sc.next();
+		
+		System.out.print("Enter dept Id ");
+		int deptid = sc.nextInt();
+		
+		//Create an object of DTO
+		Employee employee = new EmployeeImpl(empId, ename, address, mobile, deptid);
+		
+		EmployeeDAO empDAO = new EmployeeDAOImpl();
+		
+		try {
+			empDAO.addEmployee(employee);	
+			System.out.println("Employee Details added successfully");
+		}catch(SomethingWentWrongException ex) {
+			System.out.println(ex);
+		}
+		
+	}
+	
+	static void addDepartmentUI(Scanner sc) {
+		//take input employee details
+		System.out.print("Enter Department Id ");
+		int did = sc.nextInt();
+		
+		System.out.print("Enter Department name ");
+		String dname = sc.next();
+		
+		System.out.print("Enter Location ");
+		String location = sc.next();
+		
+		
+		//Create an object of DTO
+		Department department = new DepartmentImpl(did, dname,location);
+		
+		DepartmentDAO deptDAO = new DepartmentDAOImpl();
+		
+		try {
+			deptDAO.addDepartment(department);	
+			System.out.println("Department details added successfully");
+		}catch(SomethingWentWrongException ex) {
+			System.out.println(ex);
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int choice=0;
+		do {
+			System.out.println("0. Exit");
+			System.out.println("1. Add Employee Details");
+			System.out.println("2. Add Department details");
+			System.out.println("3. Search Employee who work Account Department");
+			System.out.println("4. Delete Department");
+			System.out.println("5. Search Department who live in Mumbai");
+			System.out.print("Enter Selection ");
+			choice = sc.nextInt();
+			
+			switch(choice) {
+			
+			case 1:
+				addEmployeeUI(sc);
+				break;
+			case 2:
+				addDepartmentUI(sc);
+				break;
+			case 3:
+//				deleteMobileUI(sc);
+//				break;
+			case 4:
+//				viewMobile();
+//				break;
+			case 5:
+//				searchMobileByModelNo(sc);
+//				break;
+			case 0:
+				System.out.println("Bye Bye");
+				break;
+			default:
+				System.out.println("Invalid Selection please try again later");	
+			}
+			
+		}while(choice !=0);
+	}
+}

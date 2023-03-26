@@ -1,0 +1,70 @@
+package com.problem1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+import java.util.Scanner;
+
+public class product {
+
+	static Connection getConnectionTodatabase() throws SQLException, ClassNotFoundException  {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		ResourceBundle rb = ResourceBundle.getBundle("dbdetails");
+		
+		return DriverManager.getConnection(rb.getString("url"), rb.getString("username"), rb.getString("password"));
+			
+	}
+	static void closeConnection(Connection conn) throws SQLException {
+		if(conn != null) {
+			conn.close();
+		}
+		
+	}
+	
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int choice =0;
+		do {
+			System.out.println("1 . Add Customers");
+			System.out.println("2. Update Customers");
+			System.out.println("3. Delete Customers");
+			System.out.println("4. View List of Customers");
+			System.out.println("5. Search customer by range of Date_of_Joining");
+			System.out.println("0. EXIT");
+			
+			System.out.println("Enter Selection ");
+			choice = sc.nextInt();
+			
+			switch(choice) {
+				case 1:
+					addCustomer(sc);
+					break;
+				case 2:
+					UpdateCustomer(sc);
+					break;
+				case 3:
+					deleteCustomer(sc);
+					break;
+				case 4:
+					viewCustomerList(sc);
+					break;
+				case 5:
+					searchCustomerByDate(sc);
+					break;
+				case 0:
+					System.out.println("Thanks for using our services");
+					break;
+				default:
+					System.out.println("Invalid selection, try again later");
+			
+			}
+			
+		}while(choice !=0);
+		sc.close();
+	}
+}

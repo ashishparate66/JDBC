@@ -1,0 +1,60 @@
+package com.masaischool.dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.masaischool.dto.Mobile;
+import com.masaischool.exception.SomethingWentWrongException;
+
+public class MobileDAOImpl implements MobileDAO {
+
+	public void addMobile(Mobile mb) throws SomethingWentWrongException {
+		Connection conn = null;
+		try {
+			conn = DBUtils.getConnectionTodatabase();
+			String query = "INSERT INTO mobile (model_no, company, price, mfgdate) VALUES (?, ?, ?, ?)";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setString(1, mb.getModel_no());
+			ps.setString(2, mb.getCompany());
+			ps.setInt(3, mb.getPrice());
+			ps.setDate(4, Date.valueOf(mb.getMfgdate()));
+			ps.executeUpdate();
+		}catch(ClassNotFoundException | SQLException ex) {
+			throw new SomethingWentWrongException("Unable to insert the record now, try again later");
+		}finally {
+			try {
+				DBUtils.closeConnection(conn);					
+			}catch(SQLException ex) {
+				
+			}
+		}
+	}
+	public void updateMobile(Mobile mb) throws SomethingWentWrongException{
+		
+			Connection conn = null;
+			try {
+				conn = DBUtils.getConnectionTodatabase();
+				String query = "UPDATE mobile SET company = ?, price = ?, mfgdate = ? WHERE model_no = ?";
+				PreparedStatement ps = conn.prepareStatement(query);
+				ps.setString(1, mb.getCompany());
+				ps.setInt(2, mb.getPrice());
+				ps.setDate(3, Date.valueOf(mb.getMfgdate()));
+				ps.setString(4, mb.getModel_no());
+				ps.executeUpdate();
+			}catch(ClassNotFoundException | SQLException ex) {
+				throw new SomethingWentWrongException("Unable to update the record now, try again later");
+			}finally {
+				try {
+					DBUtils.closeConnection(conn);					
+				}catch(SQLException ex) {
+					
+				}
+			}	
+		
+	}
+	public void deleteMobile(String model_no) throws SomethingWentWrongException{
+		
+	}
+}

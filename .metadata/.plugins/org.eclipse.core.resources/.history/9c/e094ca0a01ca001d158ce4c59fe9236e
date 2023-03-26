@@ -1,0 +1,11 @@
+package com.masaischool.dto;
+
+import java.time.LocalDate;
+
+public class MobileImpl {
+	
+	private String model_no;
+	private String company;
+	private int price;
+	private LocalDate mfgdate;
+}

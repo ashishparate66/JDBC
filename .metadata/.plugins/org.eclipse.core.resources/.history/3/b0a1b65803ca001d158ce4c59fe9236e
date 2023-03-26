@@ -1,0 +1,90 @@
+package com.masaischool.ui;
+
+import java.time.LocalDate;
+import java.util.Scanner;
+
+import com.masaischool.dao.MobileDAO;
+import com.masaischool.dao.MobileDAOImpl;
+import com.masaischool.dto.Mobile;
+import com.masaischool.dto.MobileImpl;
+import com.masaischool.exception.SomethingWentWrongException;
+
+public class UIMain {
+	
+	static void addMobileUI(Scanner sc) {
+		//take input employee details
+		System.out.print("Enter model no ");
+		String model_no = sc.next();
+		
+		System.out.print("Enter company name ");
+		String company = sc.next();
+		
+		System.out.print("Enter Price ");
+		int price = sc.nextInt();
+		
+		System.out.print("Enter MFG date ");
+		LocalDate mfgdate = LocalDate.parse(sc.next());
+		
+		//Create an object of DTO
+		Mobile mobile = new MobileImpl(model_no, company, price, mfgdate);
+		
+		MobileDAO mbDAO = new MobileDAOImpl();
+		
+		try {
+			mbDAO.addEmployee(mobile);	
+			System.out.println("Employee added successfully");
+		}catch(SomethingWentWrongException ex) {
+			System.out.println(ex);
+		}
+		//call the method of dao layer to add employee in database and get status
+		//if successful then "Employee added successfully"
+		//if failed then provide suitable message
+	}
+	
+	
+	
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int choice=0;
+		do {
+			System.out.println("0. Exit");
+			System.out.println("1. Add Mobile");
+			System.out.println("2. Update MobileInfo using model_no of mobile");
+			System.out.println("3. Delete Mobile using model_no of mobile");
+			System.out.println("4. View All Mobile");
+			System.out.println("5. Search Mobile By Model No");
+			System.out.println("6. Search Mobile By Price Range");
+			System.out.print("Enter Selection ");
+			choice = sc.nextInt();
+			
+			switch(choice) {
+			
+			case 1:
+//				addEmployeeUI(sc);
+//				break;
+			case 2:
+//				viewEmployee();
+//				break;
+			case 3:
+//				updateEmployeeUI(sc);
+//				break;
+			case 4:
+//				deleteEmployeeUI(sc);
+//				break;
+			case 5:
+//				searchEmployeeByJoiningDateRange(sc);
+//				break;
+			case 6:
+//				searchEmployeeByJoiningDateRange(sc);
+//				break;
+			case 0:
+				System.out.println("Bye Bye");
+				break;
+			default:
+				System.out.println("Invalid Selection please try again later");	
+			}
+			
+		}while(choice !=0);
+	}	
+}

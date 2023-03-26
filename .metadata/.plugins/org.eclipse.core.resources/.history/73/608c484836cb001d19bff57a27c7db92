@@ -1,0 +1,36 @@
+package com.masaischool.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.masaischool.dto.Department;
+import com.masaischool.exception.SomethingWentWrongException;
+
+public class DepartmentDAOImpl implements DepartmentDAO {
+	
+	public void addDepartment(Department dept) throws SomethingWentWrongException{
+		
+		Connection conn = null;
+		try {
+			conn = DBUtils.getConnectionTodatabase();
+			String query = "INSERT INTO department (did, dname,location) VALUES (?, ?, ?, ?,?)";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, dept.getDid());
+			ps.setString(2, dept.getDname());
+			ps.setString(3, dept.getLocation());
+		
+			ps.executeUpdate();
+			
+		}catch(ClassNotFoundException | SQLException ex) {
+			throw new SomethingWentWrongException("Unable to insert the record now, try again later");
+		}finally {
+			try {
+				DBUtils.closeConnection(conn);					
+			}catch(SQLException ex) {
+				
+			}
+		}
+	}
+
+}

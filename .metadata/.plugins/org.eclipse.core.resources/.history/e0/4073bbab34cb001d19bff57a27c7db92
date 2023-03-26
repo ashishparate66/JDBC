@@ -1,0 +1,11 @@
+package com.masaischool.dao;
+
+import com.masaischool.dto.Employee;
+import com.masaischool.exception.SomethingWentWrongException;
+
+public class EmployeeDAOImpl implements EmployeeDAO {
+
+	public void addEmployee(Employee emp) throws SomethingWentWrongException{
+		
+	}
+}

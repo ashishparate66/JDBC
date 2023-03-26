@@ -1,0 +1,17 @@
+package com.masaischool.dao;
+
+import java.util.List;
+
+import com.masaischool.dto.Mobile;
+import com.masaischool.exception.NoRecordFoundException;
+import com.masaischool.exception.SomethingWentWrongException;
+
+public interface MobileDAO {
+	
+	public void addMobile(Mobile mb) throws SomethingWentWrongException;
+	public void updateMobile(Mobile mb) throws SomethingWentWrongException;
+	public void deleteMobile(String model_no) throws SomethingWentWrongException;
+	public List<Mobile> getMobileList() throws SomethingWentWrongException, NoRecordFoundException;
+	public List<Mobile> searchMobileByModelNo(String model_no) throws SomethingWentWrongException, NoRecordFoundException;
+	public List<Mobile> searchMobileByPriceRange(int price1, int price2) throws SomethingWentWrongException, NoRecordFoundException;
+}

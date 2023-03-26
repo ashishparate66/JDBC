@@ -1,0 +1,13 @@
+package com.masaischool.dao;
+
+import com.masaischool.dto.Department;
+import com.masaischool.exception.SomethingWentWrongException;
+
+public class DepartmentDAOImpl implements DepartmentDAO {
+	
+	public void addDepartment(Department dept) throws SomethingWentWrongException{
+		
+		
+	}
+
+}

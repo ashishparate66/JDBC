@@ -1,0 +1,46 @@
+package com.masaischool.ui;
+
+import java.util.Scanner;
+
+public class UIMain {
+
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int choice=0;
+		do {
+			System.out.println("0. Exit");
+			System.out.println("1. Add Employee Details");
+			System.out.println("2. Add Department details");
+			System.out.println("3. Search Employee who work Account Department");
+			System.out.println("4. Delete Department");
+			System.out.println("5. Search Department who live in Mumbai");
+			System.out.print("Enter Selection ");
+			choice = sc.nextInt();
+			
+			switch(choice) {
+			
+			case 1:
+//				addMobileUI(sc);
+//				break;
+			case 2:
+//				updateMobileUI(sc);
+//				break;
+			case 3:
+//				deleteMobileUI(sc);
+//				break;
+			case 4:
+//				viewMobile();
+//				break;
+			case 5:
+//				searchMobileByModelNo(sc);
+//				break;
+			case 0:
+				System.out.println("Bye Bye");
+				break;
+			default:
+				System.out.println("Invalid Selection please try again later");	
+			}
+			
+		}while(choice !=0);
+}

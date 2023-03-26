@@ -1,0 +1,16 @@
+package com.problem1;
+
+import java.sql.Connection;
+import java.util.ResourceBundle;
+
+public class Customer {
+	
+	static Connection getConnectionTodatabase() {
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		ResourceBundle rb = ResourceBundle.getBundle("dbdetails");
+		
+	}
+
+}

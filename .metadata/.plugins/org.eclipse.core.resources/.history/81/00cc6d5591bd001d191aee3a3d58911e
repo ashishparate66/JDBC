@@ -1,0 +1,27 @@
+package PraDay5;
+class Main implements Runnable {
+@Override
+public void run() {
+for (int i = 0; i < 5; i++) {
+System.out.println("inside run " + i);
+try {
+Thread.sleep(1000);
+
+} catch (Exception e) {
+e.printStackTrace();
+}
+}
+System.out.println("end of run()...");
+}
+public static void main(String[] args) {
+Main job = new Main();
+Thread t1 = new Thread(job);
+t1.start();
+try {
+	t1.sleep(4000);
+}catch (Exception e) {
+	// TODO: handle exception
+}
+System.out.println("end of main()...");
+}
+}

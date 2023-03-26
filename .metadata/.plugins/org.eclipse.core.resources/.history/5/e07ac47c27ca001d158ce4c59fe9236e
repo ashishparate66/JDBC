@@ -1,0 +1,11 @@
+package com.masaischool.dao;
+
+import com.masaischool.dto.Mobile;
+import com.masaischool.exception.SomethingWentWrongException;
+
+public interface MobileDAO {
+	
+	public void addMobile(Mobile mb) throws SomethingWentWrongException;
+	public void updateMobile(Mobile mb) throws SomethingWentWrongException;
+	
+}

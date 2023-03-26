@@ -1,0 +1,5 @@
+package com.masaischool.exception;
+
+public class NoRecordFoundException extends Exception {
+
+}

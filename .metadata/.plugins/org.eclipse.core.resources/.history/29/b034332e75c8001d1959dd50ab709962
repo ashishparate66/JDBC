@@ -1,0 +1,64 @@
+package com.problem1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+import java.util.Scanner;
+
+public class Customer {
+	
+	static Connection getConnectionTodatabase() throws SQLException, ClassNotFoundException  {
+Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		ResourceBundle rb = ResourceBundle.getBundle("dbdetails");
+		return  DriverManager.getConnection(rb.getString("url"),rb.getString("username"), rb.getString("password"));
+	     
+		
+	}
+	static void closeConnection(Connection conn) throws SQLException {
+		if(conn != null) {
+			conn.close();
+		}
+		
+	}
+	
+	
+	static void addCustomer(Scanner sc) throws ClassNotFoundException, SQLException {
+		
+		Connection conn = getConnectionTodatabase();
+		
+		Statement st = conn.createStatement();
+		
+		System.out.println("Please Enter Your Customer Id");
+		String  customerId = sc.next();
+		System.out.println("Please Enter Your Name");
+		String  name = sc.next();
+		System.out.println("Please Enter Your Gender");
+		String  gender = sc.next();
+		System.out.println("Please Enter Your Wallet Balance");
+		Double  walletBalance = sc.nextDouble();
+		System.out.println("Please Enter Your Date of Joining");
+		LocalDate date_of_joining = LocalDate.parse(sc.next());
+		
+		String query = "INSERT INTO CUSTOMER VALUES ('"+customerId+"', '"+name+"', '"+gender+"', "+walletBalance+" ,'"+date_of_joining+"')";
+		
+		if(st.executeUpdate(query) > 0) {
+			System.out.println("Customer added Successfully");
+		}else {
+			System.out.println("Not able to add Customer");
+		}
+		
+		closeConnection(conn);
+		
+	}
+	
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+
+		
+	}
+
+}

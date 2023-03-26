@@ -1,0 +1,74 @@
+package com.masaischool.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.masaischool.dto.Department;
+import com.masaischool.dto.DepartmentImpl;
+import com.masaischool.dto.Employee;
+import com.masaischool.exception.NoRecordFoundException;
+import com.masaischool.exception.SomethingWentWrongException;
+
+public class DepartmentDAOImpl implements DepartmentDAO {
+	
+	public void addDepartment(Department dept) throws SomethingWentWrongException{
+		
+		Connection conn = null;
+		try {
+			conn = DBUtils.getConnectionTodatabase();
+			String query = "INSERT INTO department (dname,location) VALUES (?, ?)";
+			PreparedStatement ps = conn.prepareStatement(query);
+			
+			ps.setString(1, dept.getDname());
+			ps.setString(2, dept.getLocation());
+		
+			ps.executeUpdate();
+			
+		}catch(ClassNotFoundException | SQLException ex) {
+			throw new SomethingWentWrongException("Unable to insert the record now, try again later");
+		}finally {
+			try {
+				DBUtils.closeConnection(conn);					
+			}catch(SQLException ex) {
+				
+			}
+		}
+	}
+	
+	public List<Department> getDapartmentDetails(String address) throws SomethingWentWrongException, NoRecordFoundException{
+		Connection conn = null;
+		List<Department> list; 
+		try {
+			conn = DBUtils.getConnectionTodatabase();
+			String query = "SELECT dname, location"
+					+ "FROM employee E INNER JOIN department D ON E.deptid = D.did "
+					+ "AND E.address = ? AND E.is_delete = 0";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setString(1, address);
+			ResultSet rs = ps.executeQuery();
+			if(DBUtils.isResultSetEmpty(rs)) {
+				throw new NoRecordFoundException("No employee in  " + address);
+			}
+			
+			list = new ArrayList<>();
+			while(rs.next()) {
+				list.add(new DepartmentImpl(rs.getString(1), 
+						rs.getString(2)));
+			}
+		}catch(ClassNotFoundException | SQLException ex) {
+			throw new SomethingWentWrongException("Unable to view details");
+		}finally {
+			try {
+				DBUtils.closeConnection(conn);
+			}catch(SQLException ex) {
+				
+			}
+		}
+		return list;
+	}
+
+}

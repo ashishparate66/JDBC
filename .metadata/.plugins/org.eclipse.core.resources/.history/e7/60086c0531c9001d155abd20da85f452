@@ -1,0 +1,17 @@
+package com.problem1;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+public class product {
+
+	static Connection getConnectionTodatabase() throws SQLException, ClassNotFoundException  {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		ResourceBundle rb = ResourceBundle.getBundle("dbdetails");
+		
+		
+		
+	}
+}

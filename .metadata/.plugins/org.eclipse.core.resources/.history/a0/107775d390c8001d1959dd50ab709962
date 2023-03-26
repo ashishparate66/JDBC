@@ -1,0 +1,102 @@
+package com.problem1;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+import java.util.Scanner;
+
+public class Customer {
+	
+	static Connection getConnectionTodatabase() throws SQLException, ClassNotFoundException  {
+Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		ResourceBundle rb = ResourceBundle.getBundle("dbdetails");
+		return  DriverManager.getConnection(rb.getString("url"),rb.getString("username"), rb.getString("password"));
+	     
+		
+	}
+	static void closeConnection(Connection conn) throws SQLException {
+		if(conn != null) {
+			conn.close();
+		}
+		
+	}
+	
+	
+	static void addCustomer(Scanner sc) throws ClassNotFoundException, SQLException {
+		
+		Connection conn = getConnectionTodatabase();
+		
+		Statement st = conn.createStatement();
+		
+		System.out.println("Please Enter Your Customer Id");
+		String  customerId = sc.next();
+		System.out.println("Please Enter Your Name");
+		String  name = sc.next();
+		System.out.println("Please Enter Your Gender");
+		String  gender = sc.next();
+		System.out.println("Please Enter Your Wallet Balance");
+		double  walletBalance = sc.nextDouble();
+		System.out.println("Please Enter Your Date of Joining");
+		LocalDate date_of_joining = LocalDate.parse(sc.next());
+		
+		String query = "INSERT INTO CUSTOMER VALUES ('"+customerId+"', '"+name+"', '"+gender+"', "+walletBalance+" ,'"+date_of_joining+"')";
+		
+		if(st.executeUpdate(query) > 0) {
+			System.out.println("Customer added Successfully");
+		}else {
+			System.out.println("Not able to add Customer");
+		}
+		closeConnection(conn);
+	}
+	
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+      
+		Scanner sc = new Scanner(System.in);
+		
+		int choice =0;
+		do {
+			System.out.println("1 . Add Customers");
+			System.out.println("2. Update Customers");
+			System.out.println("3. Delete Customers");
+			System.out.println("4. View List of Customers");
+			System.out.println("5. Search customer by range of Date_of_Joining");
+			System.out.println("0. EXIT");
+			
+			System.out.println("Enter Selection ");
+			choice = sc.nextInt();
+			
+			switch(choice) {
+				case 1:
+					addCustomer(sc);
+					break;
+				case 2:
+//					addCustomer(sc);
+//					break;
+				case 3:
+//					addCustomer(sc);
+//					break;
+				case 4:
+//					addCustomer(sc);
+//					break;
+				case 5:
+//					addCustomer(sc);
+//					break;
+				case 0:
+					System.out.println("Thanks for using our services");
+					break;
+				default:
+					System.out.println("Invalid selection, try again later");
+			
+			}
+			
+		}while(choice !=0);
+		sc.close();
+		
+	}
+
+}

@@ -1,0 +1,40 @@
+package com.masai;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Demo {
+
+	public static void main(String[] args) throws ClassNotFoundException {
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	
+	try {
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/assignment1","root","Root");
+//		System.out.println(con);
+		
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("select * from deposit");
+	
+		while(rs.next()) {
+			System.out.println("Name: "+rs.getString("Cname"));
+			System.out.println("BName: "+rs.getString("Bname"));
+			System.out.println("ACTNO: "+rs.getString("actno"));
+			System.out.println("Amount: "+rs.getInt("amount"));
+			System.out.println("Date: "+rs.getDate("ADATE"));
+			
+			System.out.println("================================");
+		}
+		
+		con.close();
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}
+
+	}
+
+}

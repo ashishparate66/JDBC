@@ -1,0 +1,16 @@
+package com.masai;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class Main {
+
+	public static void main(String[] args) throws ClassNotFoundException {
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/assignment1","root","Root");
+
+	}
+
+}
